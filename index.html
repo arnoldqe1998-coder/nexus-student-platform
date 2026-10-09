@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NEXUS: una community per scoprire, organizzare e condividere materiali di studio.">
+  <meta name="theme-color" content="#101a33">
+  <title>NEXUS — Learn together</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="NEXUS home">
+        <span class="brand-mark">N</span><span>NEXUS</span>
+      </a>
+      <p class="sidebar-caption" data-i18n="workspace">IL TUO SPAZIO DI STUDIO</p>
+      <nav class="main-nav" aria-label="Navigazione principale">
+        <button class="nav-item active" data-view="explore"><span>⌕</span><span data-i18n="explore">Esplora</span></button>
+        <button class="nav-item" data-view="library"><span>▤</span><span data-i18n="library">Biblioteca</span></button>
+        <button class="nav-item" data-view="saved"><span>♡</span><span data-i18n="saved">Salvati</span><span class="nav-count" id="saved-count">0</span></button>
+        <button class="nav-item" data-view="community"><span>♧</span><span data-i18n="community">Community</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="language-card">
+          <span class="language-icon">文</span>
+          <div><strong data-i18n="language">Lingua</strong><small data-i18n="chooseLanguage">Scegli la lingua</small></div>
+          <select id="language-select" aria-label="Lingua interfaccia">
+            <option value="it">IT</option><option value="en">EN</option><option value="es">ES</option>
+          </select>
+        </div>
+        <p class="prototype-note">NEXUS <span>PROTOTYPE 0.1</span></p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">N</span><strong>NEXUS</strong></div>
+        <div class="breadcrumb" data-i18n="breadcrumb">La tua rete di conoscenza</div>
+        <button class="avatar-button" id="profile-button" aria-label="Profilo demo">A</button>
+      </header>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-dot"></span><span data-i18n="heroEyebrow">LA CONOSCENZA È MIGLIORE QUANDO SI CONDIVIDE</span></div>
+          <h1 data-i18n="heroTitle">Il tuo prossimo esame,<br><em>più semplice.</em></h1>
+          <p data-i18n="heroSubtitle">Scopri appunti, organizza le tue risorse e studia insieme a una community internazionale.</p>
+          <div class="hero-actions">
+            <button class="button button-light" id="explore-button" data-i18n="exploreMaterials">Esplora i materiali <span>↗</span></button>
+            <button class="button button-ghost" id="upload-button" data-i18n="shareNotes">＋ Condividi appunti</button>
+          </div>
+          <div class="hero-languages"><span>🇮🇹 Italiano</span><span>🇬🇧 English</span><span>🇪🇸 Español</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="floating-card card-book"><span class="float-icon violet">▤</span><div><b>Study smarter</b><small>Notes & resources</small></div></div>
+          <div class="floating-card card-flash"><span class="float-icon peach">✳</span><div><b>Active recall</b><small>Quiz · Flashcards</small></div></div>
+          <div class="book-stack"><div class="book book-back"></div><div class="book book-mid"></div><div class="book book-front"><span>N.</span></div></div>
+          <div class="spark spark-a">✦</div><div class="spark spark-b">✳</div>
+        </div>
+      </section>
+
+      <section class="content-section" id="materials-section">
+        <div class="section-heading">
+          <div><p class="eyebrow muted" data-i18n="discover">SCOPRI QUALCOSA DI NUOVO</p><h2 id="section-title" data-i18n="popularMaterials">Materiali popolari</h2></div>
+          <button class="text-button" id="view-all" data-i18n="viewAll">Vedi tutti <span>→</span></button>
+        </div>
+        <div class="search-row">
+          <label class="search-box"><span>⌕</span><input id="search-input" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Cerca materia, argomento o appunti..." autocomplete="off"><kbd>⌘ K</kbd></label>
+          <select id="subject-filter" aria-label="Filtra per materia"><option value="all" data-i18n="allSubjects">Tutte le materie</option><option>Medicina</option><option>Biologia</option><option>Matematica</option><option>Storia</option><option>Psicologia</option><option>Chimica</option></select>
+          <select id="material-language-filter" aria-label="Filtra per lingua"><option value="all" data-i18n="allLanguages">Tutte le lingue</option><option value="it">Italiano</option><option value="en">English</option><option value="es">Español</option></select>
+        </div>
+        <div class="category-row" id="category-row">
+          <button class="category-chip selected" data-subject="all" data-i18n="all">Tutti</button>
+          <button class="category-chip" data-subject="Medicina">🩺 Medicina</button>
+          <button class="category-chip" data-subject="Biologia">🧬 Biologia</button>
+          <button class="category-chip" data-subject="Matematica">📐 Matematica</button>
+          <button class="category-chip" data-subject="Storia">🌍 Storia</button>
+          <button class="category-chip" data-subject="Psicologia">🧠 Psicologia</button>
+        </div>
+        <div class="material-grid" id="material-grid" aria-live="polite"></div>
+        <div class="empty-state hidden" id="empty-state"><span>⌕</span><h3 data-i18n="noResults">Nessun materiale trovato</h3><p data-i18n="tryAnotherSearch">Prova con un'altra ricerca o modifica i filtri.</p></div>
+      </section>
+
+      <section class="community-banner">
+        <div class="community-symbol">✳</div>
+        <div><p class="eyebrow" data-i18n="yourKnowledge">LA TUA CONOSCENZA CONTA</p><h2 data-i18n="communityTitle">Hai appunti che potrebbero aiutare qualcuno?</h2><p data-i18n="communitySubtitle">Condividi il tuo lavoro e contribuisci a una community che impara insieme.</p></div>
+        <button class="button button-dark" id="banner-upload" data-i18n="shareResource">Condividi una risorsa <span>↗</span></button>
+      </section>
+      <footer><span>© 2026 NEXUS</span><span data-i18n="footerNote">Prototipo dimostrativo · I contenuti sono di esempio</span><a href="README.md">Info progetto</a></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+    <div class="modal detail-modal">
+      <button class="modal-close" data-close="detail-modal" aria-label="Chiudi">×</button>
+      <div class="detail-top">
+        <div class="detail-cover" id="detail-cover">🫀</div>
+        <div class="detail-heading"><span class="tag" id="detail-kind">APPUNTI</span><h2 id="detail-title">Anatomia umana</h2><div class="detail-tags" id="detail-tags"></div></div>
+      </div>
+      <div class="author-row"><div class="author-avatar" id="detail-avatar">A</div><div><strong id="detail-author">Alex M.</strong><small data-i18n="demoAuthor">Autore dimostrativo · Non verificato</small></div><button class="button button-outline button-small" id="author-profile" data-i18n="viewProfile">Vedi profilo</button></div>
+      <p class="detail-description" id="detail-description"></p>
+      <div class="detail-stats"><div><strong id="detail-pages">18</strong><span data-i18n="pages">Pagine</span></div><div><strong id="detail-language">IT</strong><span data-i18n="documentLanguage">Lingua</span></div><div><strong>PDF</strong><span data-i18n="format">Formato</span></div></div>
+      <div class="preview-paper"><div class="paper-label">NEXUS · STUDY NOTES</div><h3 id="preview-heading">Concetti fondamentali</h3><div class="preview-rule"></div><p id="preview-text"></p><div class="preview-callout" id="preview-callout"></div><small data-i18n="illustrativePreview">Anteprima illustrativa, non estratta da un documento originale.</small></div>
+      <div class="study-tools"><h3 data-i18n="studyThis">Studia questo materiale</h3><div class="tool-grid"><button class="tool-card" data-tool="summary"><span>✦</span><b data-i18n="aiSummary">Riassunto AI</b><small data-i18n="keyConcepts">Concetti principali</small></button><button class="tool-card" data-tool="quiz"><span>◉</span><b data-i18n="createQuiz">Crea quiz</b><small data-i18n="testKnowledge">Verifica la preparazione</small></button><button class="tool-card" data-tool="flashcards"><span>▤</span><b data-i18n="flashcards">Flashcard</b><small data-i18n="rememberMore">Memorizza i concetti</small></button><button class="tool-card" data-tool="translate"><span>文</span><b data-i18n="translate">Traduci</b><small>IT · EN · ES</small></button></div><div id="study-output" class="study-output hidden"></div></div>
+      <div class="detail-actions"><button class="button button-primary" id="save-detail">♡ <span data-i18n="saveMaterial">Salva materiale</span></button><button class="button button-outline" id="report-open" data-i18n="reportMaterial">⚑ Segnala</button></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="upload-modal" role="dialog" aria-modal="true" aria-labelledby="upload-title">
+    <div class="modal form-modal"><button class="modal-close" data-close="upload-modal" aria-label="Chiudi">×</button><p class="eyebrow muted" data-i18n="communityContribution">CONTRIBUISCI ALLA COMMUNITY</p><h2 id="upload-title" data-i18n="shareYourNotes">Condividi i tuoi appunti</h2><p class="form-intro" data-i18n="uploadIntro">Aggiungi una risorsa originale o un documento che hai il diritto di condividere.</p>
+      <form id="upload-form"><label><span data-i18n="resourceTitle">Titolo del materiale</span><input required name="title" maxlength="120" placeholder="Es. Introduzione alla biologia"></label><div class="form-two"><label><span data-i18n="subject">Materia</span><select name="subject" required><option value="Medicina">Medicina</option><option value="Biologia">Biologia</option><option value="Matematica">Matematica</option><option value="Storia">Storia</option><option value="Psicologia">Psicologia</option><option value="Chimica">Chimica</option><option value="Altro">Altro</option></select></label><label><span data-i18n="resourceLanguage">Lingua</span><select name="language"><option value="it">Italiano</option><option value="en">English</option><option value="es">Español</option></select></label></div><label><span data-i18n="description">Descrizione</span><textarea name="description" rows="3" maxlength="500" placeholder="Di cosa parla il materiale?"></textarea></label><label><span data-i18n="selectFile">Seleziona PDF (solo anteprima locale)</span><input type="file" name="file" id="file-input" accept=".pdf,application/pdf"></label><label class="checkbox-label"><input type="checkbox" required name="rights"><span data-i18n="rightsConfirm">Confermo di avere il diritto di condividere questo materiale e che non contiene dati personali di terzi.</span></label><p class="form-hint" data-i18n="uploadDemoHint">Demo: il file non viene caricato su un server. I dati restano in questa sessione del browser.</p><button class="button button-primary full-width" type="submit" data-i18n="addResource">Aggiungi risorsa</button></form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title">
+    <div class="modal form-modal"><button class="modal-close" data-close="report-modal" aria-label="Chiudi">×</button><p class="eyebrow muted" data-i18n="keepNexusSafe">AIUTACI A MANTENERE NEXUS SICURO</p><h2 id="report-title" data-i18n="reportTitle">Segnala questo materiale</h2><form id="report-form"><label><span data-i18n="reason">Motivo della segnalazione</span><select name="reason"><option>Informazioni errate</option><option>Possibile violazione del copyright</option><option>Spam o pubblicità ingannevole</option><option>Contenuto inappropriato</option><option>Altro</option></select></label><label><span data-i18n="moreDetails">Dettagli (facoltativo)</span><textarea name="details" rows="3" maxlength="500"></textarea></label><p class="form-hint" data-i18n="reportDemoHint">Demo: la segnalazione non viene inviata a un moderatore reale.</p><button class="button button-primary full-width" type="submit" data-i18n="sendReport">Invia segnalazione</button></form></div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
