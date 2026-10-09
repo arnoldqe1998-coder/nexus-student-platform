@@ -184,3 +184,78 @@ async function loadNexusMaterials() {
 }
 
 loadNexusMaterials();
+const nexusSupabase = window.supabase.createClient(
+
+  "https://xrxhrkjjkcxpmwbkutcl.supabase.co",
+
+  "sb_publishable__299a90rjFEDk7y6BM3NQ_4Rx9nOaD"
+
+);
+
+async function nexusRegister(email, password) {
+
+  const { data, error } = await nexusSupabase.auth.signUp({
+
+    email,
+
+    password
+
+  });
+
+  if (error) {
+
+    alert("Registrazione non riuscita: " + error.message);
+
+    return;
+
+  }
+
+  alert(
+
+    data.session
+
+      ? "Registrazione completata!"
+
+      : "Controlla la tua email per confermare l'account."
+
+  );
+
+}
+
+async function nexusLogin(email, password) {
+
+  const { error } = await nexusSupabase.auth.signInWithPassword({
+
+    email,
+
+    password
+
+  });
+
+  if (error) {
+
+    alert("Accesso non riuscito: " + error.message);
+
+    return;
+
+  }
+
+  alert("Accesso effettuato!");
+
+}
+
+async function nexusLogout() {
+
+  const { error } = await nexusSupabase.auth.signOut();
+
+  if (error) {
+
+    alert("Uscita non riuscita: " + error.message);
+
+    return;
+
+  }
+
+  alert("Hai effettuato la disconnessione.");
+
+}
