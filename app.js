@@ -259,3 +259,48 @@ async function nexusLogout() {
   alert("Hai effettuato la disconnessione.");
 
 }
+
+function nexusAuthMessage(message) {
+  document.getElementById("nexus-auth-message").textContent = message;
+}
+
+document.getElementById("nexus-register").addEventListener("click", async () => {
+  const email = document.getElementById("nexus-email").value.trim();
+  const password = document.getElementById("nexus-password").value;
+
+  if (!email || !password) {
+    nexusAuthMessage("Inserisci email e password.");
+    return;
+  }
+
+  const { error, data } = await nexusSupabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (error) {
+    nexusAuthMessage("Registrazione non riuscita: " + error.message);
+  } else if (data.session) {
+    nexusAuthMessage("Account creato! Sei già connesso.");
+  } else {
+    nexusAuthMessage("Account creato. Controlla la tua email per confermare.");
+  }
+});
+
+document.getElementById("nexus-login").addEventListener("click", async () => {
+  const email = document.getElementById("nexus-email").value.trim();
+  const password = document.getElementById("nexus-password").value;
+
+  const { error } = await nexusSupabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  nexusAuthMessage(error ? "Accesso non riuscito: " + error.message : "Accesso effettuato!");
+});
+
+document.getElementById("nexus-logout").addEventListener("click", async () => {
+  const { error } = await nexusSupabase.auth.signOut();
+  nexusAuthMessage(error ? "Errore: " + error.message : "Disconnessione effettuata.");
+});
+
