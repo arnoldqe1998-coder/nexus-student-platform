@@ -117,6 +117,27 @@
     <div class="modal form-modal"><button class="modal-close" data-close="report-modal" aria-label="Chiudi">×</button><p class="eyebrow muted" data-i18n="keepNexusSafe">AIUTACI A MANTENERE NEXUS SICURO</p><h2 id="report-title" data-i18n="reportTitle">Segnala questo materiale</h2><form id="report-form"><label><span data-i18n="reason">Motivo della segnalazione</span><select name="reason"><option>Informazioni errate</option><option>Possibile violazione del copyright</option><option>Spam o pubblicità ingannevole</option><option>Contenuto inappropriato</option><option>Altro</option></select></label><label><span data-i18n="moreDetails">Dettagli (facoltativo)</span><textarea name="details" rows="3" maxlength="500"></textarea></label><p class="form-hint" data-i18n="reportDemoHint">Demo: la segnalazione non viene inviata a un moderatore reale.</p><button class="button button-primary full-width" type="submit" data-i18n="sendReport">Invia segnalazione</button></form></div>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  
+<div id="auth-panel" style="max-width:420px;margin:24px auto;padding:20px;border:1px solid #344054;border-radius:16px;color:inherit">
+  <h2>Accedi a NEXUS</h2>
+  <p>Accedi o crea il tuo account studente.</p>
+
+  <label for="nexus-email">Email</label>
+  <input id="nexus-email" type="email" autocomplete="email" required
+    placeholder="La tua email"
+    style="display:block;width:100%;box-sizing:border-box;margin:8px 0 16px;padding:12px">
+
+  <label for="nexus-password">Password</label>
+  <input id="nexus-password" type="password" autocomplete="current-password"
+    required minlength="6" placeholder="Almeno 6 caratteri"
+    style="display:block;width:100%;box-sizing:border-box;margin:8px 0 16px;padding:12px">
+
+  <button type="button" id="nexus-register">Registrati</button>
+  <button type="button" id="nexus-login">Accedi</button>
+  <button type="button" id="nexus-logout">Esci</button>
+
+  <p id="nexus-auth-message" role="status" aria-live="polite"></p>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
