@@ -140,3 +140,47 @@ $("upload-form").addEventListener("submit",e=>{
 $("report-form").addEventListener("submit",e=>{e.preventDefault();closeModal("report-modal");toast(uiLanguage==="en"?"Demo report recorded locally only.":uiLanguage==="es"?"Reporte de demostración registrado solo localmente.":"Segnalazione demo registrata solo localmente.");e.currentTarget.reset();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal-backdrop:not(.hidden)").forEach(m=>closeModal(m.id));if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();$("search-input").focus();}});
 setLanguage("it");
+
+async function loadNexusMaterials() {
+  const SUPABASE_URL =
+    "https://xrxhrkjjkcxpmwbkutcl.supabase.co";
+
+  const SUPABASE_KEY = "sb_publishable__299a90rjFEDk7y6BM3NQ_4Rx9nOaD";
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/materials?select=*`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Errore Supabase: ${response.status}`);
+    }
+
+    const rows = await response.json();
+
+    if (rows.length > 0) {
+      materials = rows.map((item) => ({
+        id: String(item.id),
+        title: item.title,
+        description: item.description || "",
+        subject: item.subject || "Altro",
+        language: item.language || "it",
+        kind: "Appunti",
+        author: item.author_name || "Utente NEXUS",
+        pages: 0
+      }));
+
+      renderMaterials();
+    }
+  } catch (error) {
+    console.error("Caricamento NEXUS:", error);
+  }
+}
+
+loadNexusMaterials();
